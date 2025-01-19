@@ -6,7 +6,7 @@ from api_routes.courier_routes import CourierAPI
 
 
 class TestCreateOrder:
-
+    @allure.title('Проверки создания заказа с разным параметром color и без него')
     @allure.description(
         'создает заказ с черным, серым, черным и серым, без параметра color, проверяет код и наличие track в теле, удаляет заказ')
     @pytest.mark.parametrize('data', [
@@ -24,7 +24,7 @@ class TestCreateOrder:
 
 
 class TestGetOrders:
-
+    @allure.title('Проверка получения списка заказов для курьера')
     @allure.description(
         'создает курьера, создает заказ, привязывает заказ к курьеру, получает список заказов курьера,'
         'проверяет код ответа и что id созданного заказа равен id заказа в ответе, отменяет заказ, удаляет курьера')
@@ -40,4 +40,3 @@ class TestGetOrders:
         assert order_id == resp.json()['orders'][0]['id']
         params_2 = {"track": order_info.json()['order']['track']}
         OrderAPI().api_v1_orders_cancel(params_2)
-
